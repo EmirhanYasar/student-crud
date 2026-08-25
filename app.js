@@ -24,7 +24,7 @@ async function getStudents(){
     const result = await pool.query(
         "SELECT * FROM students"
     );
-    console.log(result.rows)
+    console.table(result.rows)
 
 }
 
@@ -60,6 +60,9 @@ async function deleteStudent(id){
 async function main() {
 
     try{
+        while(true){
+            
+        
         console.log("\n--- Öğrenci Yönetim Sistemi ---");
         console.log("1 - Öğrenci Ekle");
         console.log("2 - Öğrencileri Listele");
@@ -95,9 +98,12 @@ async function main() {
 
         else if (choice === "5"){
             console.log("Programdan çıkılıyor...");
+            break;
+
         } else {
             console.log("Geçersiz İşlem");
         }
+    }
 
 
     } catch(error){
