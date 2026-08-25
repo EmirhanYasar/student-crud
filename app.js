@@ -14,24 +14,24 @@ async function addStudent(name,age,email){
         [name,age,email]
     );
 
+    console.log(result.rows);
+
 }
 
+async function updateStudent(id,age){
+    const result = await pool.query(
+        "UPDATE students SET age = $1 WHERE id = $2 RETURNING* ",
+    [age,id]
+    );
 
-
-
-
-async function testConnection() {
-    try {
-        const result = await pool.query(" DELETE FROM students WHERE id = $1 RETURNING *",
-            [9]
-        );
-        console.log(result.rows);
-        
-    } catch (error) {
-        console.error("Veritabanı bağlantı hatası:", error.message);
-    } finally {
-        await pool.end();
-    }
+    console.log(result.rows);
 }
 
-testConnection();
+async function deleteStudent(id){
+    const result = await pool.query(
+        "DELETE FROM students WHERE id = $1 RETURNING * ",
+        [id]
+    );
+
+    console.log(result.rows);
+}
