@@ -85,7 +85,7 @@ async function main() {
             const id = Number(await askQuestion("Güncellenecek Öğrencinin ID'si: "));
             const age = Number(await askQuestion("Yeni yaş: "));
 
-            await updateStudent(id,yaş);
+            await updateStudent(id,age);
         }
 
         else if(choice === "4"){
@@ -94,9 +94,11 @@ async function main() {
         }
 
         else if (choice === "5"){
-            console.log("Geçersiz seçim!");
+            console.log("Programdan çıkılıyor...");
+        } else {
+            console.log("Geçersiz İşlem");
         }
-        
+
 
     } catch(error){
         console.error("Hata: ", error.message);
