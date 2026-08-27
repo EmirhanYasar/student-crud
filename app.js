@@ -90,8 +90,24 @@ async function main() {
         
         if(choice === "1"){
             const name = await askQuestion("Ad: ");
+            if(name.trim() === ""){
+                console.log("İşim Boş Bırakılamaz.");
+                continue;
+            }
+
+
             const age = Number(await askQuestion("Yaşı: "));
+            if(isNAN(age) || age <= 0 ){
+                console.log("Geçerli Bir Yaş Girin.");
+                continue;
+            }
+
+
             const email = await askQuestion("Email: ");
+            if(!email.includer("@")){
+                console.log("Geçerli Bir Email Girin.");
+                continue;
+            }
 
             await addStudent(name,age,email);
         }
