@@ -24,6 +24,7 @@ async function getStudents(){
     const result = await pool.query(
         "SELECT * FROM students"
     );
+    console.log("Öğrenci Eklendi:");
     console.table(result.rows)
 
 }
@@ -44,7 +45,14 @@ async function updateStudent(id,age){
     [age,id]
     );
 
-    console.log(result.rows);
+    if(result.rows.length === 0){
+        console.log("Bu ID'ye Ait Öğrenci Bulunamadı. ");
+    }
+    else{
+        console.log8("Öğrenci Güncellendi:");
+        console.log(result.rows);
+    }
+
 }
 
 async function deleteStudent(id){
@@ -53,7 +61,15 @@ async function deleteStudent(id){
         [id]
     );
 
-    console.log(result.rows);
+    if(result.rows.length === 0){
+        console.log("Bu ID'ye Ait Öğrenci Bulunamadı.")
+    }
+    else{
+        console.log("Öğrenci Güncellendi");
+        console.log(result.rows);
+    }
+
+
 }
 
 
@@ -116,5 +132,3 @@ async function main() {
 }
 
 main();
-
-
