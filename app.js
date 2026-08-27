@@ -72,6 +72,21 @@ async function deleteStudent(id){
 
 }
 
+async function getStudentById(id){
+    const result = await pool.query(
+        "SELECT * FROM students WHERE id = $1",
+        [id]
+    );
+     if(result.rows.length === 0){
+        console.log("Bu ID'ye ait öğrenci bulunamadı.");
+    }
+    else{
+        console.table(result.rows);
+    }
+
+
+}
+
 
 async function main() {
 
@@ -84,7 +99,8 @@ async function main() {
         console.log("2 - Öğrencileri Listele");
         console.log("3 - Öğrenci Güncelle");
         console.log("4 - Öğrenci Sil");
-        console.log("5 - Çıkış");
+        console.log("5 - Öğrenci Ara");
+        console.log("6 - Çıkış");
 
         const choice = await askQuestion("Seçiminiz: ");
         
@@ -154,8 +170,21 @@ async function main() {
             }
             await deleteStudent(id);
         }
+        else if(choice === "5"){
+            const id = Number(
+                await askQuestion("Aranacak öğrencinin ID'si: ")
+            );
 
-        else if (choice === "5"){
+            if(isNaN(id) || id <= 0){
+                console.log("Geçerli bir ID girin.");
+                continue;
+            }
+
+            await getStudentById(id);
+
+        }
+
+        else if (choice === "6"){
             console.log("Programdan çıkılıyor...");
             break;
 
