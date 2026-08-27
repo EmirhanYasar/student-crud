@@ -90,21 +90,24 @@ async function main() {
         
         if(choice === "1"){
             const name = await askQuestion("Ad: ");
+
             if(name.trim() === ""){
-                console.log("İşim Boş Bırakılamaz.");
+                console.log("İsim Boş Bırakılamaz.");
                 continue;
             }
 
 
-            const age = Number(await askQuestion("Yaşı: "));
-            if(isNAN(age) || age <= 0 ){
+            const age = Number(
+                await askQuestion("Yaşı: ")
+            );
+            if(isNaN(age) || age <= 0 ){
                 console.log("Geçerli Bir Yaş Girin.");
                 continue;
             }
 
 
             const email = await askQuestion("Email: ");
-            if(!email.includer("@")){
+            if(!email.includes("@")){
                 console.log("Geçerli Bir Email Girin.");
                 continue;
             }
@@ -117,14 +120,38 @@ async function main() {
         }
 
         else if(choice === "3"){
-            const id = Number(await askQuestion("Güncellenecek Öğrencinin ID'si: "));
-            const age = Number(await askQuestion("Yeni yaş: "));
+            const id = Number(
+                await askQuestion("Güncellenecek Öğrencinin ID'si: ")
+            );
+
+            if(isNaN(id) || id<= 0){
+                console.log("Geçerli Bir ID girin.");
+                continue;
+            }
+
+            
+            const age = Number(
+                await askQuestion("Yeni yaş: ")
+            );
+
+            if(isNaN(age) || age <=0 ){
+                console.log("Geçerli Bir Yaş Girin.");
+                continue;
+            }
+
 
             await updateStudent(id,age);
         }
 
         else if(choice === "4"){
-            const id = Number(await askQuestion("Silinecek Öğrencinin ID'si: "));
+            const id = Number(
+                await askQuestion("Silinecek Öğrencinin ID'si: ")
+            );
+
+            if(isNaN(id) || id <= 0){
+                console.log("Geçerli Bir ID Girin.");
+                continue;
+            }
             await deleteStudent(id);
         }
 
