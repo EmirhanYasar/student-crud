@@ -24,7 +24,7 @@ async function getStudents(){
     const result = await pool.query(
         "SELECT * FROM students"
     );
-    console.log("Öğrenci Eklendi:");
+    console.log("Öğrenciler:");
     console.table(result.rows)
 
 }
@@ -49,7 +49,7 @@ async function updateStudent(id,age){
         console.log("Bu ID'ye Ait Öğrenci Bulunamadı. ");
     }
     else{
-        console.log8("Öğrenci Güncellendi:");
+        console.log("Öğrenci Güncellendi:");
         console.log(result.rows);
     }
 
@@ -65,7 +65,7 @@ async function deleteStudent(id){
         console.log("Bu ID'ye Ait Öğrenci Bulunamadı.")
     }
     else{
-        console.log("Öğrenci Güncellendi");
+        console.log("Öğrenci Silindi:");
         console.log(result.rows);
     }
 
@@ -75,8 +75,8 @@ async function deleteStudent(id){
 
 async function main() {
 
-    try{
-        while(true){
+    while(true){
+        try{
             
         
         console.log("\n--- Öğrenci Yönetim Sistemi ---");
@@ -122,13 +122,18 @@ async function main() {
     }
 
 
-    } catch(error){
-        console.error("Hata: ", error.message);
+        catch(error){
+            if(error.code === "23505"){
+                console.log("Bu Email Zatan Kayıtlı");
+            } else {
+                console.error("Hata: ", error.message);
+            }
 
-    } finally{
-        r1.close();
-        await pool.end();
+        }                
     }
+    r1.close();
+    await pool.end();
+
 }
 
 main();
